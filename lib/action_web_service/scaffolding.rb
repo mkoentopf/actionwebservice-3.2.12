@@ -232,7 +232,7 @@ module ActionWebService
       def service_method_list(service)
         action = @scaffold_action_name + '_method_params'
         methods = service.api_methods_full.sort {|a, b| a[1] <=> b[1]}.map do |desc, name|
-          content_tag("li", link_to("#{name} #{desc}", "/#{action}?method=#{name}&service=#{service.name}"))
+          content_tag("li", link_to("#{name} #{desc}", "#{action}?method=#{name}&service=#{service.name}"))
         end
         content_tag("ul", methods.join("\n").html_safe)
       end
