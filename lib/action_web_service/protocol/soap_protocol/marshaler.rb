@@ -36,12 +36,20 @@ module ActionWebService
 
         def soap_to_ruby(obj)
           SOAP::Mapping.soap2obj(obj, @registry)
+        rescue SOAP::Mapping::MappingError
+          raise obj.cause # SOAP::Mapping::SOAPException
+        rescue
+          raise obj.inspect
         end
 
         def ruby_to_soap(obj)
           soap = SOAP::Mapping.obj2soap(obj, @registry)
           soap.elename = XSD::QName.new if SOAP::Version >= "1.5.5" && soap.elename == XSD::QName::EMPTY
           soap
+        rescue SOAP::Mapping::MappingError
+          raise obj.cause # SOAP::Mapping::SOAPException
+        rescue
+          raise obj.inspect
         end
 
         def register_type(type)
