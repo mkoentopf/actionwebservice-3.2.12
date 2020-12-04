@@ -86,7 +86,7 @@ module ActionWebService # :nodoc:
 
     def class_to_type_name(klass) # :nodoc:
       klass = klass.class unless klass.is_a?(Class)
-      if derived_from?(Integer, klass) || derived_from?(Fixnum, klass) || derived_from?(Bignum, klass)
+      if derived_from?(Integer, klass) # || derived_from?(Fixnum, klass) || derived_from?(Bignum, klass)
         :int
       elsif klass == String
         :string
